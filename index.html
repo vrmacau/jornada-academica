@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jornada Academica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--laranja:#FF6B00;--laranja-claro:#FF8C35;--preto:#0A0A0A;--preto-2:#111111;--preto-card:#161616;--branco:#F5F5F5;--cinza:#bbbbbb;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--preto);color:var(--branco);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 6%;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,107,0,0.15);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:var(--branco);}
+.nav-logo span{color:var(--laranja);}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:var(--cinza);text-decoration:none;font-size:0.82rem;font-weight:500;text-transform:uppercase;}
+.nav-cta{background:var(--laranja)!important;color:var(--preto)!important;padding:9px 18px;border-radius:4px;font-weight:700!important;}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 6% 80px;overflow:hidden;}
+.hero-bg{position:absolute;top:-200px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,0,0.18) 0%,transparent 70%);pointer-events:none;animation:pulse 6s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.hero-content{position:relative;max-width:760px;animation:fadeUp 0.9s ease both;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.3);color:var(--laranja);font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:28px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;}
+.hero h1 em{font-style:normal;color:var(--laranja);}
+.hero-desc{font-size:1.1rem;color:var(--cinza);line-height:1.7;max-width:540px;margin-bottom:42px;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:var(--laranja);color:var(--preto);padding:16px 36px;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;}
+.btn-ghost{border:1px solid rgba(255,255,255,0.2);color:var(--branco);padding:16px 36px;border-radius:4px;font-weight:500;font-size:0.95rem;text-decoration:none;display:inline-block;}
+.stats{display:flex;gap:48px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--laranja);line-height:1;}
+.stat-label{font-size:0.78rem;color:var(--cinza);margin-top:4px;text-transform:uppercase;letter-spacing:1px;}
+section{padding:96px 6%;position:relative;}
+.section-tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--laranja);margin-bottom:16px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
+.section-sub{color:var(--cinza);font-size:1rem;line-height:1.7;max-width:520px;margin-bottom:56px;}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;}
+.course-card{background:var(--preto-card);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:40px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.course-card:hover{border-color:rgba(255,107,0,0.35);transform:translateY(-4px);}
+.course-card.destaque{border-color:rgba(255,107,0,0.25);background:linear-gradient(135deg,#161616,#1c1208);}
+.card-label{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:24px;}
+.label-basico{background:rgba(255,255,255,0.08);color:var(--cinza);}
+.label-premium{background:rgba(255,107,0,0.15);color:var(--laranja);}
+.card-icon{width:52px;height:52px;background:rgba(255,107,0,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:1.5rem;}
+.card-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:12px;line-height:1.2;}
+.card-desc{color:var(--cinza);font-size:0.9rem;line-height:1.7;margin-bottom:28px;}
+.card-modules{list-style:none;margin-bottom:32px;}
+.card-modules li{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:rgba(245,245,245,0.8);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);line-height:1.5;}
+.card-modules li::before{content:'→';color:var(--laranja);font-weight:700;flex-shrink:0;}
+.btn-card{background:var(--laranja);color:var(--preto);padding:12px 28px;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;}
+.steps-bg{background:var(--preto-2);}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:rgba(255,255,255,0.04);border-radius:12px;overflow:hidden;}
+.step-item{background:var(--preto-2);padding:40px 32px;}
+.step-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:rgba(255,107,0,0.12);line-height:1;margin-bottom:16px;}
+.step-title{font-size:1rem;font-weight:700;margin-bottom:10px;}
+.step-desc{font-size:0.85rem;color:var(--cinza);line-height:1.6;}
+.dep-card{background:linear-gradient(135deg,#1a1a1a,#150d03);border:1px solid rgba(255,107,0,0.25);border-radius:12px;padding:32px 24px;text-align:center;display:flex;flex-direction:column;justify-content:center;}
+footer{padding:60px 6% 40px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;}
+.footer-brand span{color:var(--laranja);}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap;}
+.footer-links a{color:var(--cinza);text-decoration:none;font-size:0.85rem;}
+.footer-copy{width:100%;text-align:center;font-size:0.78rem;color:rgba(255,255,255,0.45);padding-top:28px;border-top:1px solid rgba(255,255,255,0.04);margin-top:20px;}
+@media(max-width:768px){.nav-links{display:none;}section{padding:72px 5%;}.hero{padding:100px 5% 60px;}.courses-grid{grid-template-columns:1fr;}footer{flex-direction:column;text-align:center;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">Jornada<span>.</span>Academica</div>
+  <div class="nav-links">
+    <a href="#cursos">Cursos</a>
+    <a href="#como-funciona">Como Funciona</a>
+    <a href="#consultoria">Consultoria</a>
+    <a href="#cursos" class="nav-cta">Comecar</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Professores Mestres &amp; Doutores</div>
+    <h1>Sua <em>aprovacao</em><br>no mestrado<br>ou doutorado</h1>
+    <p class="hero-desc">Do projeto de pesquisa a aprovacao: preparacao completa, estrategica e orientada por quem ja percorreu esse caminho.</p>
+    <div class="hero-actions">
+      <a href="#cursos" class="btn-primary">Ver os Cursos</a>
+      <a href="#consultoria" class="btn-ghost">Quero Consultoria</a>
+    </div>
+    <div class="stats">
+      <div><div class="stat-num">2</div><div class="stat-label">Modalidades</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Online</div></div>
+      <div><div class="stat-num">+Dr.</div><div class="stat-label">Professores Doutores</div></div>
+    </div>
+  </div>
+</section>
+<section id="cursos">
+  <div class="section-tag">Nossos Cursos</div>
+  <h2 class="section-title">Escolha sua trilha</h2>
+  <p class="section-sub">Dois caminhos para a mesma conquista.</p>
+  <div class="courses-grid">
+    <div class="course-card">
+      <div class="card-label label-basico">Videoaulas</div>
+      <div class="card-icon">&#127891;</div>
+      <h3 class="card-title">Curso Completo</h3>
+      <p class="card-desc">Videoaulas com professores mestres e doutores.</p>
+      <ul class="card-modules">
+        <li>Estrategia de Estudo para Pos-Graduacao</li>
+        <li>Ingles Academico Pro-Eficiencia</li>
+        <li>Pre-Projeto de Pesquisa</li>
+        <li>Etapas do Mestrado e Doutorado</li>
+        <li>Preparacao para Aprovacao</li>
+      </ul>
+      <a href="https://pay.hotmart.com/N83915856K?checkoutMode=10" target="_blank" class="btn-card">Comprar Agora</a>
+    </div>
+    <div class="course-card destaque">
+      <div class="card-label label-premium">Premium</div>
+      <div class="card-icon">&#127942;</div>
+      <h3 class="card-title">Mentoria com Professor Doutor</h3>
+      <p class="card-desc">Acompanhamento individual do inicio ate a aprovacao.</p>
+      <ul class="card-modules">
+        <li>Tudo do Curso Completo</li>
+        <li>Acompanhamento do seu projeto</li>
+        <li>Revisao do pre-projeto</li>
+        <li>Preparacao para entrevistas</li>
+        <li>Suporte ate a aprovacao</li>
+      </ul>
+      <a href="https://wa.me/5591993041001" target="_blank" class="btn-card">Falar pelo WhatsApp</a>
+    </div>
+  </div>
+</section>
+<section style="padding:80px 6%;background:#0d0d0d;">
+  <div style="text-align:center;margin-bottom:48px;">
+    <div class="section-tag">Aprovados</div>
+    <h2 class="section-title">Quem ja fez a jornada</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:820px;margin:0 auto;">
+    <div class="dep-card">
+      <div style="font-size:2rem;margin-bottom:10px;">&#9989;</div>
+      <div style="color:#FF6B00;font-weight:700;margin-bottom:8px;">APROVADA</div>
+      <div style="color:#fff;font-size:0.9rem;line-height:1.7;font-style:italic;margin-bottom:10px;">"A Jornada Academica tornou meu sonho possivel e me levou de volta a universidade."</div>
+      <div style="color:#F1C40F;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div style="color:#FF6B00;font-weight:700;font-size:0.82rem;margin-top:6px;">Andreza Gaia - UFPA</div>
+    </div>
+    <div class="dep-card">
+      <div style="font-size:2rem;margin-bottom:10px;">&#9989;</div>
+      <div style="color:#FF6B00;font-weight:700;margin-bottom:8px;">APROVADA</div>
+      <div style="color:#fff;font-size:0.9rem;line-height:1.7;font-style:italic;margin-bottom:10px;">"Professores excelentes, linguagem clara e objetiva."</div>
+      <div style="color:#F1C40F;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div style="color:#FF6B00;font-weight:700;font-size:0.82rem;margin-top:6px;">Alinie Afonso - UEPA</div>
+    </div>
+  </div>
+</section>
+<section id="como-funciona" class="steps-bg">
+  <div class="section-tag">Como Funciona</div>
+  <h2 class="section-title">Do cadastro a aprovacao</h2>
+  <div class="steps-grid">
+    <div class="step-item"><div class="step-num">01</div><div class="step-title">Escolha seu Curso</div><div class="step-desc">Videoaulas ou consultoria individual.</div></div>
+    <div class="step-item"><div class="step-num">02</div><div class="step-title">Acesse o Conteudo</div><div class="step-desc">Estrategia, ingles, pre-projeto e mais.</div></div>
+    <div class="step-item"><div class="step-num">03</div><div class="step-title">Construa seu Projeto</div><div class="step-desc">Com orientacao de professores doutores.</div></div>
+    <div class="step-item"><div class="step-num">04</div><div class="step-title">Seja Aprovado</div><div class="step-desc">Entre no programa com preparo total.</div></div>
+  </div>
+</section>
+<section id="consultoria" style="background:linear-gradient(135deg,#0f0f0f,#150d03);border-top:1px solid rgba(255,107,0,0.15);padding:96px 6%;">
+  <div style="max-width:640px;margin:0 auto;text-align:center;">
+    <div class="section-tag">Consultoria Individual</div>
+    <h2 class="section-title">Acompanhamento <span style="color:#FF6B00;">personalizado</span></h2>
+    <p class="section-sub" style="margin:0 auto 36px;">Um professor doutor te guia do inicio ate a aprovacao.</p>
+    <a href="https://wa.me/5591993041001?text=Quero%20saber%20mais%20sobre%20a%20consultoria" target="_blank"
+       style="display:inline-flex;align-items:center;gap:12px;background:#25D366;color:#fff;padding:18px 40px;border-radius:8px;font-weight:700;font-size:1rem;text-decoration:none;">
+      Falar no WhatsApp agora
+    </a>
+  </div>
+</section>
+<footer>
+  <div class="footer-brand">Jornada<span>.</span>Academica</div>
+  <div class="footer-links">
+    <a href="mailto:contatojornadaacademica@gmail.com">Email</a>
+    <a href="https://instagram.com/ajornada.academica" target="_blank">Instagram</a>
+  </div>
+  <div class="footer-copy">2025 Jornada Academica. Todos os direitos reservados.</div>
+</footer>
+<a href="https://wa.me/5591993041001" target="_blank" style="position:fixed;bottom:24px;left:16px;z-index:99;background:#25D366;color:#fff;padding:12px 18px;border-radius:100px;font-size:0.8rem;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);">&#128172; WhatsApp</a>
+<a href="https://instagram.com/ajornada.academica" target="_blank" style="position:fixed;bottom:24px;right:16px;z-index:99;background:#FF6B00;color:#0a0a0a;padding:12px 18px;border-radius:100px;font-size:0.8rem;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(255,107,0,0.4);">&#128247; Instagram</a>
+</body>
+</html>
